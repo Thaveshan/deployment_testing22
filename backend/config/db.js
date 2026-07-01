@@ -1,23 +1,33 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
-const profileDb = mongoose.createConnection(process.env.MONGO_URI);
-const logsDb = mongoose.createConnection(process.env.MONGO_Logs_URI);
+if (!process.env.MONGO_PROFILE_URI) {
+  console.error("MONGO_PROFILE_URI is missing.");
+}
 
-profileDb.on('connected', () => {
-    console.log('Connected to Profile Database');
+if (!process.env.MONGO_LOGS_URI) {
+  console.error("MONGO_LOGS_URI is missing.");
+}
+
+const profileDb = mongoose.createConnection(process.env.MONGO_PROFILE_URI || "");
+const logsDb = mongoose.createConnection(process.env.MONGO_LOGS_URI || "");
+
+profileDb.on("connected", () => {
+  console.log("Connected to Profile Database");
 });
 
-profileDb.on('error', (err) => {
-    console.error('Profile Database connection error:', err);
+logsDb.on("connected", () => {
+  console.log("Connected to Logs Database");
 });
 
-logsDb.on('connected', () => {
-    console.log('Connected to Logs Database');
+profileDb.on("error", (error) => {
+  console.error("Profile Database connection error:", error.message);
 });
 
-logsDb.on('error', (err) => {
-    console.error('Logs Database connection error:', err);
+logsDb.on("error", (error) => {
+  console.error("Logs Database connection error:", error.message);
 });
 
-module.exports = { profileDb, logsDb };
-
+module.exports = {
+  profileDb,
+  logsDb
+};
