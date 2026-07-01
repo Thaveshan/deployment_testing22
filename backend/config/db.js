@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-if (!process.env.MONGO_PROFILE_URI) {
+if (!process.env.MONGO_URI) {
   console.error("MONGO_PROFILE_URI is missing.");
 }
 
@@ -8,7 +8,7 @@ if (!process.env.MONGO_LOGS_URI) {
   console.error("MONGO_LOGS_URI is missing.");
 }
 
-const profileDb = mongoose.createConnection(process.env.MONGO_PROFILE_URI || "");
+const profileDb = mongoose.createConnection(process.env.MONGO_URI || "");
 const logsDb = mongoose.createConnection(process.env.MONGO_LOGS_URI || "");
 
 profileDb.on("connected", () => {
