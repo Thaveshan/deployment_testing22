@@ -1,0 +1,54 @@
+<div class="container">
+  <div class="card">
+    <div class="top-bar">
+      <h2>Profile</h2>
+      <button type="button" (click)="logout()">Logout</button>
+    </div>
+
+    <p class="username-text">
+      Logged in as: {{ username }}
+    </p>
+
+    <p>
+      <a routerLink="/audit-logs">View Audit Logs</a>
+    </p>
+
+    <p *ngIf="isLoading">Loading profile...</p>
+
+    <div class="success" *ngIf="message">
+      {{ message }}
+    </div>
+
+    <div class="error" *ngIf="errorMessage">
+      {{ errorMessage }}
+    </div>
+
+    <form (ngSubmit)="updateProfile()" *ngIf="!isLoading">
+      <label>Email</label>
+      <input
+        type="email"
+        [(ngModel)]="email"
+        name="email"
+        required
+      />
+
+      <label>Phone</label>
+      <input
+        type="text"
+        [(ngModel)]="phone"
+        name="phone"
+        required
+      />
+
+      <label>Date of Birth</label>
+      <input
+        type="date"
+        [(ngModel)]="dob"
+        name="dob"
+        required
+      />
+
+      <button type="submit">Save Changes</button>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,1 @@
+Code change → Git commit → Push to GitHub → Deploy to Azure → Test live app

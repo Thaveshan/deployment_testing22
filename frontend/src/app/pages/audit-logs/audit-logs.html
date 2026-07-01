@@ -1,0 +1,39 @@
+<div class="container">
+  <div class="card">
+    <h2>Audit Logs</h2>
+
+    <p>
+      <a routerLink="/profile">Back to Profile</a>
+    </p>
+
+    <p *ngIf="isLoading">Loading audit logs...</p>
+
+    <div class="error" *ngIf="errorMessage">
+      {{ errorMessage }}
+    </div>
+
+    <table *ngIf="!isLoading && logs.length > 0">
+      <thead>
+        <tr>
+          <th>Username</th>
+          <th>Action</th>
+          <th>Description</th>
+          <th>Date</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let log of logs">
+          <td>{{ log.username }}</td>
+          <td>{{ log.action }}</td>
+          <td>{{ log.description }}</td>
+          <td>{{ log.createdAt | date:'short' }}</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p *ngIf="!isLoading && logs.length === 0 && !errorMessage">
+      No audit logs found.
+    </p>
+  </div>
+</div>
